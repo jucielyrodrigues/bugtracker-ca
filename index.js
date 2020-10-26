@@ -9,6 +9,7 @@ const userController = require('./controllers/users.js')();
 
 app.get('/users', userController.getUserController);
 app.get('/users/:email', userController.getByEmail);
+app.post('/users', userController.postUserController);
 
 app.get('/', (req, res) => {
   res.send('Hello world');

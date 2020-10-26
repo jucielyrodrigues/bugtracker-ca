@@ -1,3 +1,5 @@
+const { MongoClient } = require('mongodb');
+
 const uri = process.env.MONGO_URI;
 const mongoClient = require('mongodb').MongoClient;
 const option = {
@@ -18,7 +20,20 @@ module.exports = () => {
       });
     });
   };
+  const add = (collectionName, item) => {
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(uri, option, (error, client) => {
+        const db = client.db(dbName);
+        const collection = db.collection(collectionName);
+        collection.insertOne(item, (error, results) => {
+          resolve(results);
+          client.close();
+        });
+      });
+    });
+  };
   return {
     get,
+    add,
   };
 };
