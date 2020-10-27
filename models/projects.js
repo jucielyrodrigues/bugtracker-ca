@@ -1,13 +1,13 @@
-const db = require('../db.js')();
+const db = require('../db')();
 const collection = 'projects';
 module.exports = () => {
   const get = async (slug = null) => {
     if (!slug) {
       const allSlug = await db.get(collection);
-      return result;
+      return allSlug;
     }
-    const slug = await db.get(collection, { slug });
-    return slug;
+    const slugs = await db.get(collection, { slug });
+    return slugs;
   };
   const add = async (slug, name, decription) => {
     const results = await db.add(collection, {

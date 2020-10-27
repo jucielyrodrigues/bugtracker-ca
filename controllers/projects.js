@@ -1,10 +1,11 @@
-const project = require('../models/project')();
+const projects = require('../models/projects')();
+
 module.exports = () => {
   const getUserController = async (req, res) => {
-    res.json(await project.get());
+    res.json(await projects.get());
   };
   const getBySlug = async (req, res) => {
-    res.json(await project.get(req.params.slug));
+    res.json(await projects.get(req.params.slug));
   };
   const postUserController = async (req, res) => {
     let slug = req.body.slug;

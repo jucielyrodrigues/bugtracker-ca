@@ -6,15 +6,15 @@ const hostname = '0.0.0.0';
 app.use(bodyParser.json());
 
 const userController = require('./controllers/users.js')();
-const project = require('controllers/users')();
+const projects = require('./controllers/projects')();
 
 app.get('/users', userController.getUserController);
 app.get('/users/:email', userController.getByEmail);
 app.post('/users', userController.postUserController);
 
-app.get('/project', project.userController);
-app.get('/project/:slug', project.userController);
-app.get('/project', project.postUserController);
+app.get('/projects', projects.getUserController);
+app.get('/projects/:slug', projects.getUserController);
+app.get('/projects', projects.postUserController);
 
 app.get('/', (req, res) => {
   res.send('Hello world');
