@@ -3,13 +3,13 @@ const collection = 'projects';
 module.exports = () => {
   const get = async (slug = null) => {
     if (!slug) {
-      const allSlug = await db.get(collection);
-      return allSlug;
+      const result = await db.get(collection);
+      return result;
     }
     const slugs = await db.get(collection, { slug });
     return slugs;
   };
-  const add = async (slug, name, decription) => {
+  const add = async (slug, name, description) => {
     const results = await db.add(collection, {
       slug: slug,
       name: name,

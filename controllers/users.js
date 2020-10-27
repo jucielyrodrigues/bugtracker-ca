@@ -1,4 +1,5 @@
 const users = require('../models/users')();
+
 module.exports = () => {
   const getUserController = async (req, res) => {
     res.json(await users.get());

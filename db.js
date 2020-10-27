@@ -32,8 +32,21 @@ module.exports = () => {
       });
     });
   };
+  const count = (collectionName) => {
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(uri, option, (error, client) => {
+        const db = client.db(dbName);
+        const collection = db.collection(collectionName);
+        collection.countDocuments({}, (error, results) => {
+          resolve(results);
+          client.close();
+        });
+      });
+    });
+  };
   return {
     get,
     add,
+    count,
   };
 };
