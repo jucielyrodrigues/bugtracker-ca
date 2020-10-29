@@ -9,6 +9,17 @@ module.exports = () => {
     const user = await db.get(collection, { email });
     return user;
   };
+  const getByKey = async (key) => {
+    if (!key) {
+      console.log('01: no key');
+      return null;
+    }
+    const users = await db.get(collection, { key });
+    if (users.length !== 1) {
+      console.log('02: bad key');
+    }
+    return users[0];
+  };
   const add = async (name, email, usertype, key) => {
     const results = await db.add(collection, {
       name: name,
@@ -21,5 +32,6 @@ module.exports = () => {
   return {
     get,
     add,
+    getByKey,
   };
 };

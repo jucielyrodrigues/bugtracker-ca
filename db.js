@@ -44,9 +44,39 @@ module.exports = () => {
       });
     });
   };
+  const update = (collectionName, pipeline) => {
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(uri, option, (error, client) => {
+        const db = client.db(dbName);
+        const collection = db.collection(collectionName);
+        collection.updateOne(pipeline[0], pipeline[1], (error, results) => {
+          resolve(results);
+          client.close();
+        });
+      });
+    });
+  };
+
+  const aggregate = (collectionName, pipeline = {}) => {
+    return new Promise((resolve, reject) => {
+      mongoClient.connect(uri, option, (error, client) => {
+        const db = client.db(dbName);
+        const collection = db.collection(collectionName);
+        collection.aggregate(pipeline).toArray((error, docs) => {
+          if (error) {
+            console.log(error);
+          }
+          resolve(docs);
+          client.close();
+        });
+      });
+    });
+  };
   return {
     get,
     add,
     count,
+    update,
+    aggregate,
   };
 };

@@ -28,6 +28,7 @@ module.exports = () => {
     });
     return results.result;
   };
+
   return {
     get,
     add,
