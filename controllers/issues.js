@@ -2,14 +2,31 @@ const issues = require('../models/issues')();
 
 module.exports = () => {
   const getController = async (req, res) => {
-    res.json(await issues.get());
+    const { issues, error } = await issues.get();
+    if (error) {
+      res.status(500).json({
+        error,
+      });
+    }
+    res.json(issues);
   };
   const getByProject = async (req, res) => {
-    res.json(await issues.getByProjectId(req.params.slug));
+    const { issues, error } = await issues.get(req.params.issueNumber);
+    if (error) {
+      res.status(500).json({
+        error,
+      });
+    }
+    res.json(issues);
   };
-
   const getByIssue = async (req, res) => {
-    res.json(await issues.get(req.params.slug));
+    const { issues, error } = await issues.get(req.params.slug);
+    if (error) {
+      res.status(500).json({
+        error,
+      });
+    }
+    res.json(issues);
   };
   const postController = async (req, res) => {
     let slug = req.params.slug;
@@ -18,14 +35,19 @@ module.exports = () => {
     let status = req.body.status;
     let projectId = req.body.projectId;
 
-    const result = await issues.add(
+    const { results, error } = await issues.add(
       slug,
       title,
       description,
       status,
       projectId,
     );
-    res.json(result);
+    if (error) {
+      res.status(500).json({
+        error,
+      });
+    }
+    res.json(results);
   };
   return {
     getController,

@@ -4,29 +4,55 @@ const collection = 'issues';
 
 module.exports = () => {
   const get = async (issueNumber = null) => {
-    if (!issueNumber) {
-      const result = await db.get(collection);
-      return result;
+    try {
+      if (!issueNumber) {
+        const issues = await db.get(collection);
+        return { issues };
+      }
+      const issues = await db.get(collection, { slug: issueNumber });
+      return { issues };
+    } catch (err) {
+      return {
+        error: err,
+      };
     }
-    const issues = await db.get(collection, { slug: issueNumber });
-    return issues;
   };
+
   const getByProjectId = async (issueNumber) => {
     let expression = new RegExp(issueNumber);
-    const byProject = await db.get(collection, { slug: expression });
-    return byProject;
+    try {
+      const byProject = await db.get(collection, { slug: expression });
+      return byProject;
+    } catch (err) {
+      return {
+        error: err,
+      };
+    }
   };
+
   const add = async (slug, title, description, status, projectId) => {
-    const counter = await db.count(collection);
-    const results = await db.add(collection, {
-      slug: `${slug}-${counter + 1}`,
-      title: title,
-      description: description,
-      status: status,
-      projectId: new ObjectId(projectId),
-      comments: [],
-    });
-    return results.result;
+    if (!slug || title || description || status) {
+      return {
+        error: 'Complete all the fields',
+      };
+    }
+
+    try {
+      const counter = await db.count(collection);
+      const results = await db.add(collection, {
+        slug: `${slug}-${counter + 1}`,
+        title: title,
+        description: description,
+        status: status,
+        projectId: new ObjectId(projectId),
+        comments: [],
+      });
+      return { results };
+    } catch (err) {
+      return {
+        error: err,
+      };
+    }
   };
 
   return {
