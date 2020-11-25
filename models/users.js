@@ -66,7 +66,7 @@ module.exports = () => {
       to: email, // list of receivers
       subject: 'Hello ✔', // Subject line
       text: 'Hey, WELCOME TO BUG TRACKER',
-      html: '<b>Hello world?</b>', // html body
+      html: '<b>Hey, WELCOME TO BUG TRACKER</b>', // html body
     });
 
     console.log('Message sent: %s', info.messageId);
