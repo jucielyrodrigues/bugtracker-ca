@@ -31,7 +31,7 @@ module.exports = () => {
   };
 
   const add = async (slug, title, description, status, projectId) => {
-    if (!slug || title || description || status) {
+    if (!slug || !title || !description || !sstatus) {
       return {
         error: 'Complete all the fields',
       };

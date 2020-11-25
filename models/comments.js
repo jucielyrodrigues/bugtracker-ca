@@ -47,7 +47,7 @@ module.exports = () => {
   };
 
   const addComment = async (issueNumber, text, author) => {
-    if (!issueNumber || text || author) {
+    if (!issueNumber || !text || !author) {
       return {
         error: 'Complete all the fields',
       };

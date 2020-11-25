@@ -3,14 +3,19 @@ const collection = 'projects';
 
 module.exports = () => {
   const get = async (slug = null) => {
-    try {
-      if (!slug) {
+    if (!slug) {
+      try {
         const slug = await db.get(collection);
         return { slug };
+      } catch (err) {
+        console.log(err);
+        return {
+          error: err,
+        };
       }
-      const slug = await db.get(collection, {
-        slug: slug,
-      });
+    }
+    try {
+      const slug = await db.get(collection, { slug });
       return { slug };
     } catch (err) {
       console.log(err);
@@ -21,19 +26,18 @@ module.exports = () => {
   };
 
   const add = async (slug, name, description) => {
-    if (!slug || name || description) {
+    if (!slug || !name || !description) {
       return {
         error: 'Complete all the fields',
       };
     }
-
     try {
       const slugName = await db.get(collection, {
-        slug: slugName,
+        slug: slug,
       });
       if (slugName.length > 0) {
         return {
-          result: 'Project already exist',
+          results: 'Project already exist',
         };
       }
       const results = await db.add(collection, {
