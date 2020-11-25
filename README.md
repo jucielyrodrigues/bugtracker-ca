@@ -2,6 +2,8 @@
 
 > This project is a bugtracker for the course Cloud Based Web Applications
 
+## What the project does
+
 > This application register bugs and you can add comments, users, projects and search using the variables defined.
 
 ## Table of contents
@@ -21,10 +23,10 @@ CA2 - CLOUD WEB APPLICATIONS
 
 ## Technologies
 
-- "body-parser": "1.19.0",
-- "express": "4.17.1",
-- "mongodb": "3.6.2",
-- "nodemailer": "6.4.16"
+- body-parser: 1.19.0
+- express: 4.17.1
+- mongodb: 3.6.2
+- nodemailer: 6.4.16
 - HEROKU
 - GITHUB
 - IMSOMNIA
@@ -34,7 +36,7 @@ CA2 - CLOUD WEB APPLICATIONS
 
 git clone https://github.com/jucielyrodrigues/bugtracker-ca
 
-go to directory and run npm start.
+- Go to directory and run npm start.
 
 ## Example usage
 
@@ -55,7 +57,7 @@ go to directory and run npm start.
 - get specific comment for an issue: /issues/:issueNumber/comments/:commentsId
 - add a comment for an issuen using post: /issues/:issueNumber/comments
 
-## changelog
+## Changelog
 
 - OCT 23- START PROJECT
 - OCT 25- ADD postusercontroller, function add
